@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package protos.model;
+
+import "product.proto";
+
+message CartItem {
+    int64 id = 1;
+    Product product = 2;
+    int32 quantity = 3;
+    int64 creation_date = 4;
+}
+
+
+message CartResume {
+    int32 items_count = 1;
+    double total_amount = 2;
+}
+
+message Cart {
+    string id = 1;
+    string user_id = 2;
+    repeated CartItem items = 3;
+    CartResume resume = 4;
+}
+
+message AddItemRequest {
+    CartItem item = 1;
+}
+
+message AddItemResponse {
+    string message = 1;
+    CartResume cart_resume = 2;
+}
+
+message RemoveItemRequest {
+    CartItem item = 1;
+}
+
+message RemoveItemResponse {
+    string message = 1;
+    CartResume cart_resume = 2;
+}
+
+service CartService {
+    rpc AddItem (AddItemRequest) returns (AddItemResponse);
+    rpc RemoveItem (RemoveItemRequest) returns (RemoveItemResponse);
+    rpc Get (Cart) returns (Cart);
+}
