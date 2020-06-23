@@ -4,12 +4,12 @@ else
   _sudo="sudo"
 fi
 
-install_cpp(){
-  # already included
-  echo "Ready"
+install_cpp() {
+  # Is installed in base/install_grpc.sh
+  echo "Ready: CPP "
 }
 
-test_cpp(){
+test_cpp() {
   cd ../test || exit
   bash ./test_cpp.sh
   cd ../langs || exit

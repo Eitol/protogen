@@ -23,7 +23,7 @@ install_pecl_package(){
   fi
 }
 
-install_php_deps() {
+install_php_deps_compiled() {
   echo "Installing: PHP deps"
   install_pecl_package grpc
   install_pecl_package protobuf
@@ -43,6 +43,16 @@ install_php_deps() {
   ${_sudo} chmod +x "${INSTALATION_DIR}/${PLUGIN_NAME}"
   cd - || exit
 }
+
+install_php_deps() {
+  grpc_php_plugin_path=$(whereis grpc_php_plugin | awk '{print $2}')
+  if [[ "${grpc_php_plugin_path}" == "" ]]; then
+    install_php_deps_compiled
+  else
+    echo "PHP plugin is already installed"
+  fi
+}
+
 
 test_php(){
   cd ../test || exit

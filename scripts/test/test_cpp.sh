@@ -7,7 +7,8 @@ PROTOS=./protos
 gen_cpp() {
   mkdir -p ${OUT}
   rm -rf  "${OUT:?}/*"
-  protoc -I=${PROTOS} --grpc_out=${OUT} --plugin=protoc-gen-grpc=grpc_cpp_plugin ${PROTOS}/*
+  grpc_cpp_plugin=$(whereis grpc_cpp_plugin | awk '{print $2}')
+  protoc -I=${PROTOS} --grpc_out=${OUT} --plugin=protoc-gen-grpc="${grpc_cpp_plugin}" ${PROTOS}/*
   protoc -I=${PROTOS} --cpp_out=${OUT} ${PROTOS}/*
 }
 
